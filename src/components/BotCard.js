@@ -9,6 +9,7 @@ const botTypeClasses = {
   Captain: "icon star",
 };
 
+
 function BotCard({ bot }) {
   return (
     <div className="ui column">
