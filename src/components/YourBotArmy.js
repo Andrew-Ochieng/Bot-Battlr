@@ -1,10 +1,10 @@
 import React from "react";
 import BotCard from "./BotCard";
 
-function YourBotArmy({ botsArmy, releaseBot }) {
+function YourBotArmy({ botsArmy, releaseBot, dischargeBot }) {
   //your bot army code here...
   const enlistedBot = botsArmy.map((bot) => {
-    return <BotCard key={bot} bot={bot} handleBot={releaseBot}/>
+    return <BotCard key={bot} bot={bot} handleBot={releaseBot} dischargeBot={dischargeBot}/>
 
   })
 

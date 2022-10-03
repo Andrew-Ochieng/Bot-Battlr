@@ -4,7 +4,7 @@ import BotCollection from "./BotCollection";
 
 function BotsPage() {
   //start here with your code for step one
-  const [allBots, setAllBots] = useState([])
+  const [displayBots, setDisplayBots] = useState([])
   const [botsArmy, setBotsArmy] = useState([])
   const [botsCollection, setBotsCollection] = useState(false)
 
@@ -19,37 +19,40 @@ function BotsPage() {
       .then((response) => response.json())
       .then((data) => {
         // console.log(data)
-        setAllBots(data)
+        setDisplayBots(data)
       })
       .catch((err) => console.log(err))
   }
 
 
   function addBotToArmy(bot) {
-    const newBotArmy = botsArmy.find((b) => b.id === bot.id)
+    const newBotArmy = botsArmy.find((bt) => bt.id === bot.id)
     if (!newBotArmy) setBotsArmy([...botsArmy, bot])
 
   }
 
   function releaseBot(bot) {
-    const newBotArmy = botsArmy.find((b) => b.id === bot.id)
+    const newBotArmy = botsArmy.find((bt) => bt.id === bot.id)
     if (newBotArmy) {
       setBotsArmy(
-        botsArmy.filter((bts) => bts.id !== bot.id)
+        botsArmy.filter((bt) => bt.id !== bot.id)
       )
     }
 
   }
 
   function dischargeBot(bot) {
-    // const botApi = `http://localhost:8002/bots/${bot.id}`
-    fetch(`http://localhost:8002/bots/${bot.id}`, {
+    const botApi = `http://localhost:8002/bots/${bot}`
+    fetch(botApi, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
     })
-    setBotsCollection(true)
+
+    const deleteBot = botsArmy.filter((bt) => bt.id !== bot);
+		setBotsArmy(deleteBot);
+
   }
 
 
@@ -58,10 +61,11 @@ function BotsPage() {
       <YourBotArmy 
         botsArmy={botsArmy}
         releaseBot={releaseBot} 
+        dischargeBot={dischargeBot}
       />
       <BotCollection 
-        allBots={allBots} 
-        dischargeBot={dischargeBot} 
+        displayBots={displayBots} 
+        // dischargeBot={dischargeBot} 
         addBotToArmy={addBotToArmy}
       />
     

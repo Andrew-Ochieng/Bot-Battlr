@@ -1,7 +1,7 @@
 import React from "react";
 import BotCard from "./BotCard";
 
-function BotCollection({ allBots, dischargeBot, addBotToArmy }) {
+function BotCollection({ displayBots, dischargeBot, addBotToArmy }) {
   // Your code here
   
 
@@ -10,7 +10,7 @@ function BotCollection({ allBots, dischargeBot, addBotToArmy }) {
       <div className="row">
         {/*...and here..*/}
         {
-          allBots.map((bot) => (
+          displayBots.map((bot) => (
             <BotCard bot={bot} key={bot.id} dischargeBot={dischargeBot} handleBot={addBotToArmy} />
           ))
         }
