@@ -1,7 +1,7 @@
 import React from "react";
 import BotCard from "./BotCard";
 
-function BotCollection({ bots, deleteBot, addBotToArmy }) {
+function BotCollection({ allBots, dischargeBot, addBotToArmy }) {
   // Your code here
   
 
@@ -9,10 +9,9 @@ function BotCollection({ bots, deleteBot, addBotToArmy }) {
     <div className="ui four column grid">
       <div className="row">
         {/*...and here..*/}
-        Collection of all bots
         {
-          bots.map((bot) => (
-            <BotCard bot={bot} key={bot.id} deleteBot={deleteBot} addBotToArmy={addBotToArmy} />
+          allBots.map((bot) => (
+            <BotCard bot={bot} key={bot.id} dischargeBot={dischargeBot} handleBot={addBotToArmy} />
           ))
         }
       </div>

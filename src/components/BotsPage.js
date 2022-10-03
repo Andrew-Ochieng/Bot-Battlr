@@ -4,7 +4,7 @@ import BotCollection from "./BotCollection";
 
 function BotsPage() {
   //start here with your code for step one
-  const [bots, setBots] = useState([])
+  const [allBots, setAllBots] = useState([])
   const [botsArmy, setBotsArmy] = useState([])
   const [botsCollection, setBotsCollection] = useState(false)
 
@@ -18,31 +18,32 @@ function BotsPage() {
     fetch(api)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
-        setBots(data)
+        // console.log(data)
+        setAllBots(data)
       })
       .catch((err) => console.log(err))
   }
 
 
   function addBotToArmy(bot) {
-    const newBotArmy = botsArmy.find((boties) => boties.id === bot.id)
+    const newBotArmy = botsArmy.find((b) => b.id === bot.id)
     if (!newBotArmy) setBotsArmy([...botsArmy, bot])
 
   }
 
-  function releaseBotFromArmy(bot) {
-    const newBotArmy = botsArmy.find((boties) => boties.id === bot.id)
+  function releaseBot(bot) {
+    const newBotArmy = botsArmy.find((b) => b.id === bot.id)
     if (newBotArmy) {
       setBotsArmy(
-        botsArmy.filter((boties) => boties.id !== bot.id)
+        botsArmy.filter((bts) => bts.id !== bot.id)
       )
     }
+
   }
 
-  function deleteBot(bot) {
-    const botUrl = `http://localhost:8002/bots/${bot.id}`
-    fetch(botUrl, {
+  function dischargeBot(bot) {
+    // const botApi = `http://localhost:8002/bots/${bot.id}`
+    fetch(`http://localhost:8002/bots/${bot.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -54,8 +55,15 @@ function BotsPage() {
 
   return (
     <div>
-      <YourBotArmy releaseBotFromArmy={releaseBotFromArmy} botsArmy={botsArmy} />
-      <BotCollection bots={bots} deleteBot={deleteBot} addBotToArmy={addBotToArmy}/>
+      <YourBotArmy 
+        botsArmy={botsArmy}
+        releaseBot={releaseBot} 
+      />
+      <BotCollection 
+        allBots={allBots} 
+        dischargeBot={dischargeBot} 
+        addBotToArmy={addBotToArmy}
+      />
     
     </div>
   )
